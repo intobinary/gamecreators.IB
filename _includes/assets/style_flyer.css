@@ -1,0 +1,94 @@
+/*** CANCEL ***/
+html, body, main { width: 100%; height: 100%; }	
+/*** END CANCEL ***/
+
+/*** Z-INDEXES ***/
+.u-ad-button { position: relative; z-index: 10; }
+.u-ad-price-text { position: relative; z-index: 20; }
+/*** END Z-INDEXES ***/
+
+/*** COLORS ***/
+.u-ad-button { background-color: #03E960; }
+
+.u-ad-price_dock,
+.u-ad-price-text a { color: #eee; }
+
+.u-ad-price_dock { background-color: #101010; }
+/*** END COLORS ***/
+
+/*** FONTS ***/
+@font-face { font-family: "OCR A"; src: url("../../assets/fonts/ocrext.ttf"); }
+
+.u-ad-footer,
+.u-ad-price-text { font-family: "OCR A"; letter-spacing: -.05em; }
+
+.u-ad-footer,
+.u-ad-price-text { font-size: 5vw; }
+
+.u-ad-footer { text-align: center; }
+.u-ad-price { text-align: center; }
+.u-ad-price-text a { text-decoration: underline; }
+/*** END FONTS ***/
+
+/*** MEDIA ***/
+/*** END MEDIA ***/
+
+/*** UTILITIES ***/
+	/*** .u-ad ***/
+	.u-ad {
+		position: relative;
+	}
+	.u-ad-button {
+		position: absolute; top: 32.5%; left: 19%;
+		width: 15%; aspect-ratio: 1/1;
+		display: block;
+		
+		border-radius: 50%;
+	}
+		#chkbx4price:checked ~ main .u-ad-button {// width: 1.9em; }
+	.u-ad-footer {
+		padding: .75em .5em;
+	}
+	.u-ad-img {
+		display: block;
+		margin: 0 auto;
+	}
+	.u-ad-price {
+		position: absolute; top: 37.5%;
+		width: 100%;
+		padding: 0 10%;
+	}
+	.u-ad-price_dock {
+		padding: .5em;
+		border-radius: .5em;
+	}
+/*** END UTILITIES ***/
+
+/*** INTERACTIIVITY ***/
+.u-ad-button { cursor: pointer; }
+
+.u-ad-price { display: none; }
+#chkbx4price:checked ~ main .u-ad-price { display: block; }
+/*** END INTERACTIIVITY ***/
+
+/*** MEDIA-QUERIES ***/
+@media screen and (min-width: 50em) {
+	html { max-width: 700px; margin: 0 auto; }
+	
+	.u-ad { max-width: 19em; }
+	
+	.u-ad-footer,
+	.u-ad-price-text { font-size: 1em; }
+}
+/*** END MEDIA-QUERIES ***/
+
+/*** ANIMATION ***/
+	/*** .u-ad-button ***/
+	#chkbx4price:not(:checked) ~ main .u-ad-button { animation: twinkle 1s infinite; }
+	
+	@keyframes twinkle {
+		0% { transform: scale(1); }
+		50% { transform: scale(1.19); }
+		100% { transform: scale(1); }
+	}
+/*** END ANIMATION ***/
