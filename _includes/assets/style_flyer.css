@@ -17,7 +17,7 @@ html, body, main { width: 100%; height: 100%; }
 /*** END COLORS ***/
 
 /*** FONTS ***/
-@font-face { font-family: "OCR A"; src: url("../../assets/fonts/ocrext.ttf"); }
+@font-face { font-family: "OCR A"; src: url("../../assets/fonts/ocraext.ttf"); }
 
 .u-ad-footer,
 .u-ad-price-text { font-family: "OCR A"; letter-spacing: -.05em; }
@@ -42,6 +42,7 @@ html, body, main { width: 100%; height: 100%; }
 		position: absolute; top: 32.5%; left: 19%;
 		width: 15%; aspect-ratio: 1/1;
 		display: block;
+		padding: .5em;
 		
 		border-radius: 50%;
 	}
@@ -69,6 +70,9 @@ html, body, main { width: 100%; height: 100%; }
 
 .u-ad-price { display: none; }
 #chkbx4price:checked ~ main .u-ad-price { display: block; }
+
+.u-ad-button img { transform: rotate(-15deg); }
+#chkbx4price:checked ~ main .u-ad-button img { transform: rotate(0); }
 /*** END INTERACTIIVITY ***/
 
 /*** MEDIA-QUERIES ***/
