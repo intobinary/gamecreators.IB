@@ -16,6 +16,8 @@ footer a { text-decoration: underline; }
 .flyer-price_dock,
 .flyer-price-text a { color: #eee; }
 
+.demo-content-menu span { background-color: #AAA; }
+
 .flyer-price_dock { background-color: #101010; }
 /*** END COLORS ***/
 
@@ -54,7 +56,7 @@ footer a { text-decoration: underline; }
 	/*** .demo ***/
 	.demo-content-blocks,
 	.demo-content-menu { display: flex; }
-	.demo-content-menu span:nth-child(1) { flex: 1; }
+	.demo-content-menu span { flex: 1; }
 	
 	.demo-content_dock {
 		padding: 1em;
@@ -107,15 +109,14 @@ footer a { text-decoration: underline; }
 	.demo-content-menu {
 		margin-top: 1em;
 	}
-	.demo-content-menu span {
+	.demo-content-menu span, .demo-content-menu label {
 		padding: 1em;
 		border-radius: .5em;
 	}
-	.demo-content-menu span:nth-child(1) {
+	.demo-content-menu span {
 		margin-right: 1em;
-		background-color: purple;
 	}
-	.demo-content-menu span:nth-child(2) {
+	.demo-content-menu label {
 		background-color: white;
 	}
 
@@ -124,13 +125,15 @@ footer a { text-decoration: underline; }
 		position: relative;
 	}
 	.flyer-button {
-		position: absolute; top: 35%; left: 19%;
+		position: absolute;
 		width: 15%; aspect-ratio: 1/1;
 		display: block;
 		padding: .5em;
 		
 		border-radius: 50%;
 	}
+		.flyer-button.for-flyer { top: 35%; left: 19%; }
+		.flyer-button.for-demo { top: 0; right: 0; }
 		#chkbx4price:checked ~ main .flyer-button {// width: 1.9em; }
 	.flyer-footer {
 		padding: .75em .5em;
@@ -152,11 +155,14 @@ footer a { text-decoration: underline; }
 
 /*** INTERACTIIVITY ***/
 .js-code,
-.demo-content-menu span,
+.demo-content-menu span, .demo-content-menu label,
 .flyer-button { cursor: pointer; }
 
 .flyer-price { display: none; }
 #chkbx4price:checked ~ main .flyer-price { display: block; }
+
+.demo { display: none !important; }
+#chkbx4demo:checked ~ main .demo { display: flex !important; }
 
 .flyer-button img { transform: rotate(-15deg); }
 #chkbx4price:checked ~ main .flyer-button img { transform: rotate(0); }
@@ -195,7 +201,7 @@ footer a { text-decoration: underline; }
 	}
 	
 	/*** COMPONENTS: .demo ***/
-	.demo { display: flex; }
+	.demo {// display: flex; }
 	.demo { flex-direction: column; }
 	.demo-content { flex: 1; }
 	
