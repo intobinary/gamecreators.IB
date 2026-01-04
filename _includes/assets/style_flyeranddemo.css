@@ -166,6 +166,8 @@ footer a { text-decoration: underline; }
 
 .flyer-button img { transform: rotate(-15deg); }
 #chkbx4price:checked ~ main .flyer-button img { transform: rotate(0); }
+
+#chkbx4demo:checked ~ main .flyer-button.for-demo { background-color: #AAA !important; }
 /*** END INTERACTIIVITY ***/
 
 /*** MEDIA-QUERIES ***/
