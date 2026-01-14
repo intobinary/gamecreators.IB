@@ -8,12 +8,19 @@ var vCharX = 0,
 
 var vCharRotation = -90; // up
 
-var tagCodeMoveForward = document.querySelector(".js-code.for-moveForward"),
+const GRID_COLS = 8;
+const GRID_ROWS = 4;
+const GRID_SIZE = GRID_COLS * GRID_ROWS; // 32
+
+var newCodeBlock = null;
+var aCodingArea = [], aCorrectCodingArea = [];
+var tagCodingArea = document.querySelector(".js-codingArea"),
+	tagCodeMoveForward = document.querySelector(".js-code.for-moveForward"),
+	tagCodePlay = document.querySelector(".js-code.for-play"),
     tagCodeTurnLeft = document.querySelector(".js-code.for-turnLeft"),
     tagCodeTurnRight = document.querySelector(".js-code.for-turnRight"),
     tagSpriteCharacter = document.querySelector(".js-sprite.is-character"),
     tagNewGame = document.querySelector(".js-new");
-
 var gridTiles = document.querySelectorAll(".demo-content-grid-box");
 /*** END DATA ***/
 
@@ -22,43 +29,99 @@ var gridTiles = document.querySelectorAll(".demo-content-grid-box");
 function loadLevel(id) {
     gameID = id % gameJson.length;
 
-    var levelKey  = Object.keys(gameJson[gameID])[0];
-    var levelData = gameJson[gameID][levelKey][0];
+    var iLevel  = Object.keys(gameJson[gameID])[0];
+    var iLevelData = gameJson[gameID][iLevel];
+	var iStart = iLevelData.find(o => o.start).start;
 
     // RESET POSITION
     vCharX = 0;
     vCharY = 0;
-    vCharPos = levelData.start[0];
+    vCharPos = iStart[0];
 
     tagSpriteCharacter.setAttribute("attr-start", vCharPos);
-    tagSpriteCharacter.setAttribute("attr-direction", levelData.start[1]);
+    tagSpriteCharacter.setAttribute("attr-direction", iLevelData.start[1]);
 
     // ROTATION FROM START DIR
-    if (levelData.start[1] === "up") vCharRotation = -90;
-    if (levelData.start[1] === "right") vCharRotation = 0;
-    if (levelData.start[1] === "down") vCharRotation = 90;
-    if (levelData.start[1] === "left") vCharRotation = 180;
+    if (iLevelData.start[1] === "up") vCharRotation = -90;
+    if (iLevelData.start[1] === "right") vCharRotation = 0;
+    if (iLevelData.start[1] === "down") vCharRotation = 90;
+    if (iLevelData.start[1] === "left") vCharRotation = 180;
 
     // RESET GRID
     gridTiles.forEach((tile, i) => {
         const n = i + 1;
-        tile.classList.remove("is-map", "has-money");
+        tile.classList.remove("is-map", "has-money", "has-computers", "has-degrees", "has-books");
 
-        if (levelData.map.includes(n)) {
-            tile.classList.add("is-map");
-        }
-
-        if (levelData.money.includes(n)) {
-            tile.classList.add("has-money");
-        }
+        if (iLevelData.map.includes(n)) { tile.classList.add("is-map"); }
+        if (iLevelData.money.includes(n)) { tile.classList.add("has-money"); }
+        if (iLevelData.computers.includes(n)) { tile.classList.add("has-computers"); }
+        if (iLevelData.degrees.includes(n)) { tile.classList.add("has-degrees"); }
+        if (iLevelData.books.includes(n)) { tile.classList.add("has-books"); }
     });
 
     updateSprite();
 }
 /*** END LEVEL LOADER ***/
 
-
 /*** FUNCTIONS ***/
+function doCodingStep(iStep) {
+	if (iStep >= aCodingArea.length) return;
+
+	switch (aCodingArea[iStep]) {
+		case "up":
+			doMoveForward();
+			break;
+
+		case "right":
+			vCharRotation += 90;
+			break;
+
+		case "left":
+			vCharRotation -= 90;
+			break;
+	}
+
+	updateSprite();
+
+	setTimeout(function () {
+		doCodingStep(iStep + 1);
+	}, 1000);
+}
+
+function doMoveForward() {
+    let dir = getDirection();
+
+	switch (dir) {
+		case "up":
+			if (vCharPos > GRID_COLS) {
+				vCharY -= 100;
+				vCharPos -= GRID_COLS;
+			}
+			break;
+
+		case "down":
+			if (vCharPos <= GRID_SIZE - GRID_COLS) {
+				vCharY += 100;
+				vCharPos += GRID_COLS;
+			}
+			break;
+
+		case "left":
+			if ((vCharPos - 1) % GRID_COLS !== 0) {
+				vCharX -= 100;
+				vCharPos -= 1;
+			}
+			break;
+
+		case "right":
+			if (vCharPos % GRID_COLS !== 0) {
+				vCharX += 100;
+				vCharPos += 1;
+			}
+			break;
+	}
+}
+
 function updateSprite() {
     tagSpriteCharacter.style.transform =
         `translate(${vCharX}%, ${vCharY}%) rotate(${vCharRotation}deg)`;
@@ -67,9 +130,10 @@ function updateSprite() {
         ".demo-content-grid-box:nth-child(" + vCharPos + ")"
     );
 
-    if (tile && tile.classList.contains("has-money")) {
-        tile.classList.remove("has-money");
-    }
+    if (tile && tile.classList.contains("has-money")) { tile.classList.remove("has-money"); }
+    if (tile && tile.classList.contains("has-computers")) { tile.classList.remove("has-computers"); }
+    if (tile && tile.classList.contains("has-degrees")) { tile.classList.remove("has-degrees"); }
+    if (tile && tile.classList.contains("has-books")) { tile.classList.remove("has-books"); }
 }
 
 function getDirection() {
@@ -79,51 +143,32 @@ function getDirection() {
     if (r === 180) return "left";
     if (r === 270) return "up";
 }
+
+function addCode(theTag) {
+	newTagCodeBlock = theTag.cloneNode(true);
+	tagCodingArea.appendChild(newTagCodeBlock);
+}
 /*** END FUNCTIONS ***/
 
 
 /*** EVENTS ***/
 tagCodeMoveForward.addEventListener("click", function () {
-    let dir = getDirection();
+	aCodingArea.push("up");
+	addCode(tagCodeMoveForward);
+});
 
-    switch (dir) {
-        case "up":
-            if (vCharPos > 3) {
-                vCharY -= 100;
-                vCharPos -= 3;
-            }
-            break;
-        case "down":
-            if (vCharPos < 7) {
-                vCharY += 100;
-                vCharPos += 3;
-            }
-            break;
-        case "left":
-            if (vCharPos % 3 !== 1) {
-                vCharX -= 100;
-                vCharPos -= 1;
-            }
-            break;
-        case "right":
-            if (vCharPos % 3 !== 0) {
-                vCharX += 100;
-                vCharPos += 1;
-            }
-            break;
-    }
-
-    updateSprite();
+tagCodePlay.addEventListener("click", function(){
+	doCodingStep(0);
 });
 
 tagCodeTurnLeft.addEventListener("click", function () {
-    vCharRotation -= 90;
-    updateSprite();
+	aCodingArea.push("left");
+	addCode(tagCodeTurnLeft);
 });
 
 tagCodeTurnRight.addEventListener("click", function () {
-    vCharRotation += 90;
-    updateSprite();
+	aCodingArea.push("right");
+	addCode(tagCodeTurnRight);
 });
 
 tagNewGame.addEventListener("click", function () {

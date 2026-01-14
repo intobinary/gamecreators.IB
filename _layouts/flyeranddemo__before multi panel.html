@@ -1,0 +1,50 @@
+---
+layout: default
+---
+	<input type="checkbox" id="chkbx4price" />
+	<input type="checkbox" id="chkbx4demo" />
+	<main>
+		<figure class="flyer">
+			<img src="/assets/images/ad.png" class="flyer-img" />
+			<label for="chkbx4price" class="flyer-button for-flyer"><img src="/assets/images/intobinary-icon_black.png" /></label>
+			<label for="chkbx4demo" class="flyer-button for-demo"><img src="/assets/images/icon-game_black.png" /></label>
+			
+			<div class="flyer-price"><div class="flyer-price_dock">
+				<p class="flyer-price-text">The price of the weekly program depends on the city of the school. <a href="mailto:madam.ella@intobinary.org" title="Email the Founder at madam.ella@intobinary.org">Contact us</a>.</p>
+			</div></div>
+			
+			<footer class="flyer-footer">&copy; Copyrights 2025: <a href="https://intobinary.org">Into Binary</a>. All rights reserved.</footer>
+		</figure>
+		
+		<section class="demo CSScentered">
+			<div class="demo-content"><div class="demo-content_dock">{% capture aMap %}{% endcapture %}{% capture aMoney %}{% endcapture %}{% capture vStart %}{% endcapture %}{% for file in site.data.demo %}{% for data in file[1] %}{% capture aMap %}{{ aMap }}{{ data.map }}{% endcapture %}{% capture aMoney %}{{ data.money }}{% endcapture %}{% capture vStart %}{{ vStart }}{{ data.start[0] }}{% if forloop.index == 2 %},{% endif %}{{ data.start[1] }}{% endcapture %}{% endfor %}{% endfor %}
+				<div class="demo-content-grid">{% for i in (1..9) %}
+					<span class="demo-content-grid-box{% if aMap contains i %} is-map{% endif %}{% if aMoney contains i %} has-money{% endif %}">{{ i }}</span>{% endfor %}
+						
+					<div class="demo-content-grid-item is-character js-sprite CSScentered" attr-start="{{ vStart | split: ',' | first }}" attr-direction="{{ vStart | split: ',' | last }}">
+						<img src="/assets/images/demo/ava.svg" />
+					</div>
+				</div>
+				<div class="demo-content-blocks">
+					<img class="js-code for-moveForward" src="/assets/images/demo/move-forward.png" draggable="true" />
+					<img class="js-code for-turnLeft" src="/assets/images/demo/turn-left.png" draggable="true" />
+					<img class="js-code for-turnRight" src="/assets/images/demo/turn-right.png" draggable="true" />
+				</div>
+								
+				<div class="demo-content-menu">
+					<span class="js-new">New Game</span>
+					<label for="chkbx4demo">&cross;</label>
+				</div>
+				
+				<!--
+				<div class="CSScentered">
+					<iframe src="https://www.youtube.com/embed/4wRg_gDuY4E?si=yED2IqakDsAzm1ah" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+				</div>
+				-->
+			</div></div>
+			
+			<footer class="demo-footer">&copy; Copyrights 2025: <a href="https://intobinary.org">Into Binary</a>. All rights reserved.</footer>
+		</section>
+	</main>
+	
+	<script src="/assets/scripts/gamecreators-dot-intobinary-dot-org_flyeranddemo.js"></script>

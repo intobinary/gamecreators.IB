@@ -16,20 +16,51 @@ layout: default
 			<footer class="flyer-footer">&copy; Copyrights 2025: <a href="https://intobinary.org">Into Binary</a>. All rights reserved.</footer>
 		</figure>
 		
-		<section class="demo CSScentered">
-			<div class="demo-content"><div class="demo-content_dock">{% capture aMap %}{% endcapture %}{% capture aMoney %}{% endcapture %}{% capture vStart %}{% endcapture %}{% for file in site.data.demo %}{% for data in file[1] %}{% capture aMap %}{{ aMap }}{{ data.map }}{% endcapture %}{% capture aMoney %}{{ data.money }}{% endcapture %}{% capture vStart %}{{ vStart }}{{ data.start[0] }}{% if forloop.index == 2 %},{% endif %}{{ data.start[1] }}{% endcapture %}{% endfor %}{% endfor %}
-				<div class="demo-content-grid">{% for i in (1..9) %}
+		<section class="demo CSScentered">{% for file in site.data.demo %}{% for data in file[1] %}{% if bMap == nil %}{% assign bMap = data.map %}{% endif %}{% if bStart == nil %}{% assign bStart = data.start %}{% endif %}{% if bSolution == nil %}{% assign bSolution = data.solution %}{% endif %}{% for content in data.items %}{% if bMoney == nil %}{% assign bMoney = content.money %}{% endif %}{% if bComputers == nil %}{% assign bComputers = content.computers %}{% endif %}{% if bDegrees == nil %}{% assign bDegrees = content.degrees %}{% endif %}{% if bBooks == nil %}{% assign bBooks = content.books %}{% endif %}{% endfor %}{% endfor %}{% endfor %}
+			<div class="demo-content"><div class="demo-content_dock">
+				<div class="demo-content-code">
+					<div class="demo-content-code-area">
+						<h5>Coding Area</h5>
+						<div class="demo-content-code-area-nav">
+							<img class="js-code for-play" src="/assets/images/demo/icon_start.png" draggable="true" />
+						</div>
+						<div class="demo-content-code-area-tags"><div class="demo-content-code-area-tags_dock"><div class="js-codingArea">
+							<img src="/assets/images/demo/start.png" draggable="true" />
+						</div></div></div>
+					</div>
+					<div class="demo-content-code-blocks">
+						<h5>Code Blocks</h5>
+						<div class="demo-content-code-blocks-tags">
+							<img class="js-code for-moveForward" src="/assets/images/demo/move-forward.png" draggable="true" />
+							<img class="js-code for-turnLeft" src="/assets/images/demo/turn-left.png" draggable="true" />
+							<img class="js-code for-turnRight" src="/assets/images/demo/turn-right.png" draggable="true" />
+						</div>
+					</div>
+				</div>
+
+				<div class="demo-content-grid">{% for i in (1..32) %}{% assign vClasses = "" %}{% if bMap contains i %}{% capture vClasses %}{{ vClasses }} is-map{% endcapture %}{% endif %}{% if bMoney contains i %}{% capture vClasses %}{{ vClasses }} has-money{% endcapture %}{% endif %}{% if bComputers contains i %}{% capture vClasses %}{{ vClasses }} has-computers{% endcapture %}{% endif %}{% if bDegrees contains i %}{% capture vClasses %}{{ vClasses }} has-degrees{% endcapture %}{% endif %}{% if bBooks contains i %}{% capture vClasses %}{{ vClasses }} has-books{% endcapture %}{% endif %}
+					<span class="demo-content-grid-box{{ vClasses }}">{{ i }}</span>{% endfor %}
+					
+					<div class="demo-content-grid-item is-character js-sprite CSScentered" attr-start="{{ bStart[0] }}" attr-direction="{{ bStart[1] }}">
+						<img src="/assets/images/demo/ava.svg" />
+					</div>
+				</div>
+
+
+
+
+
+
+				
+				<!--
+				<div class="demo-content-grid"><div class="demo-content-grid_dock">{% for i in (1..9) %}
 					<span class="demo-content-grid-box{% if aMap contains i %} is-map{% endif %}{% if aMoney contains i %} has-money{% endif %}">{{ i }}</span>{% endfor %}
 						
 					<div class="demo-content-grid-item is-character js-sprite CSScentered" attr-start="{{ vStart | split: ',' | first }}" attr-direction="{{ vStart | split: ',' | last }}">
 						<img src="/assets/images/demo/ava.svg" />
 					</div>
-				</div>
-				<div class="demo-content-blocks">
-					<img class="js-code for-moveForward" src="/assets/images/demo/move-forward.png" draggable="true" />
-					<img class="js-code for-turnLeft" src="/assets/images/demo/turn-left.png" draggable="true" />
-					<img class="js-code for-turnRight" src="/assets/images/demo/turn-right.png" draggable="true" />
-				</div>
+				</div><div class="demo-content-grid_spacer">AAA</div></div>
+				-->
 								
 				<div class="demo-content-menu">
 					<span class="js-new">New Game</span>
