@@ -15,6 +15,7 @@ const GRID_SIZE = GRID_COLS * GRID_ROWS; // 32
 var newCodeBlock = null;
 var aCodingArea = [], aCorrectCodingArea = [];
 var tagCodingArea = document.querySelector(".js-codingArea"),
+	tagCodeDelete = document.querySelector(".js-code.for-delete"),
 	tagCodeMoveForward = document.querySelector(".js-code.for-moveForward"),
 	tagCodePlay = document.querySelector(".js-code.for-play"),
     tagCodeTurnLeft = document.querySelector(".js-code.for-turnLeft"),
@@ -23,7 +24,6 @@ var tagCodingArea = document.querySelector(".js-codingArea"),
     tagNewGame = document.querySelector(".js-new");
 var gridTiles = document.querySelectorAll(".demo-content-grid-box");
 /*** END DATA ***/
-
 
 /*** LEVEL LOADER ***/
 function loadLevel(id) {
@@ -59,7 +59,7 @@ function loadLevel(id) {
         if (iLevelData.books.includes(n)) { tile.classList.add("has-books"); }
     });
 
-    updateSprite();
+	updateSprite();
 }
 /*** END LEVEL LOADER ***/
 
@@ -152,13 +152,21 @@ function addCode(theTag) {
 
 
 /*** EVENTS ***/
+tagCodeDelete.addEventListener("click", function() {
+	if(aCodingArea.length > 0) {
+		aCodingArea.pop();
+		var tagsCodeBlocks = document.querySelectorAll(".js-codingArea img");
+		tagsCodeBlocks[tagsCodeBlocks.length - 1].remove();
+	}
+});
+
 tagCodeMoveForward.addEventListener("click", function () {
 	aCodingArea.push("up");
 	addCode(tagCodeMoveForward);
 });
 
 tagCodePlay.addEventListener("click", function(){
-	doCodingStep(0);
+	if(aCodingArea.length > 0) { doCodingStep(0); }
 });
 
 tagCodeTurnLeft.addEventListener("click", function () {
