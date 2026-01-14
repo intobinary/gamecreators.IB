@@ -42,7 +42,7 @@ layout: default
 				</div>
 
 				<div class="demo-content-grid">{% for i in (1..32) %}{% assign vClasses = "" %}{% if bMap contains i %}{% capture vClasses %}{{ vClasses }} is-map{% endcapture %}{% endif %}{% if bMoney contains i %}{% capture vClasses %}{{ vClasses }} has-money{% endcapture %}{% endif %}{% if bComputers contains i %}{% capture vClasses %}{{ vClasses }} has-computers{% endcapture %}{% endif %}{% if bDegrees contains i %}{% capture vClasses %}{{ vClasses }} has-degrees{% endcapture %}{% endif %}{% if bBooks contains i %}{% capture vClasses %}{{ vClasses }} has-books{% endcapture %}{% endif %}
-					<span class="demo-content-grid-box{{ vClasses }}">{{ i }}</span>{% endfor %}
+					<span class="demo-content-grid-box{{ vClasses }}"><!--{{ i }}--></span>{% endfor %}
 					
 					<div class="demo-content-grid-item is-character js-sprite CSScentered" attr-start="{{ bStart[0] }}" attr-direction="{{ bStart[1] }}">
 						<img src="/assets/images/demo/ava.svg" />
