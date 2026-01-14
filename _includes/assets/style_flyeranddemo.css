@@ -329,7 +329,8 @@ footer a { text-decoration: underline; }
 
 /*** ANIMATION ***/
 	/*** .flyer-button ***/
-	#chkbx4price:not(:checked) ~ main .flyer-button { animation: twinkle 1s infinite; }
+	#chkbx4price:not(:checked) ~ main .flyer-button,
+	.js-code.for-play { animation: twinkle 1s infinite; }
 	
 	@keyframes twinkle {
 		0% { transform: scale(1); }
