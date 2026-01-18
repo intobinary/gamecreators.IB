@@ -31,32 +31,43 @@ function loadLevel(id) {
 
     var iLevel  = Object.keys(gameJson[gameID])[0];
     var iLevelData = gameJson[gameID][iLevel];
-	var iStart = iLevelData.find(o => o.start).start;
+//	var iLevelDataStart = iLevelData.find(o => o.start).start;
+	
+	var iLevelDataMap      = iLevelData.find(o => o.map)?.map || [];
+	var iLevelDataStart    = iLevelData.find(o => o.start)?.start || [1, "up"];
+	var iLevelDataSolution = iLevelData.find(o => o.solution)?.solution || [];
+
+	var iLevelDataObjects = iLevelData.find(o => o.items)?.items || [];
+
+	var iLevelDataMoney     = iLevelDataObjects.find(o => o.money)?.money || [];
+	var iLevelDataComputers = iLevelDataObjects.find(o => o.computers)?.computers || [];
+	var iLevelDataDegrees   = iLevelDataObjects.find(o => o.degrees)?.degrees || [];
+	var iLevelDataBooks     = iLevelDataObjects.find(o => o.books)?.books || [];
 
     // RESET POSITION
     vCharX = 0;
     vCharY = 0;
-    vCharPos = iStart[0];
+    vCharPos = iLevelDataStart[0];
 
     tagSpriteCharacter.setAttribute("attr-start", vCharPos);
-    tagSpriteCharacter.setAttribute("attr-direction", iLevelData.start[1]);
+    tagSpriteCharacter.setAttribute("attr-direction", iLevelDataStart[1]);
 
     // ROTATION FROM START DIR
-    if (iLevelData.start[1] === "up") vCharRotation = -90;
-    if (iLevelData.start[1] === "right") vCharRotation = 0;
-    if (iLevelData.start[1] === "down") vCharRotation = 90;
-    if (iLevelData.start[1] === "left") vCharRotation = 180;
+    if (iLevelDataStart[0] === "up") vCharRotation = -90;
+    if (iLevelDataStart[0] === "right") vCharRotation = 0;
+    if (iLevelDataStart[0] === "down") vCharRotation = 90;
+    if (iLevelDataStart[0] === "left") vCharRotation = 180;
 
     // RESET GRID
     gridTiles.forEach((tile, i) => {
         const n = i + 1;
         tile.classList.remove("is-map", "has-money", "has-computers", "has-degrees", "has-books");
 
-        if (iLevelData.map.includes(n)) { tile.classList.add("is-map"); }
-        if (iLevelData.money.includes(n)) { tile.classList.add("has-money"); }
-        if (iLevelData.computers.includes(n)) { tile.classList.add("has-computers"); }
-        if (iLevelData.degrees.includes(n)) { tile.classList.add("has-degrees"); }
-        if (iLevelData.books.includes(n)) { tile.classList.add("has-books"); }
+        if (iLevelDataMap.includes(n)) { tile.classList.add("is-map"); }
+        if (iLevelDataMoney.includes(n)) { tile.classList.add("has-money"); }
+        if (iLevelDataComputers.includes(n)) { tile.classList.add("has-computers"); }
+        if (iLevelDataDegrees.includes(n)) { tile.classList.add("has-degrees"); }
+        if (iLevelDataBooks.includes(n)) { tile.classList.add("has-books"); }
     });
 
 	updateSprite();
