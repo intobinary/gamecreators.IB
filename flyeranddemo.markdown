@@ -1,4 +1,0 @@
----
-layout: flyeranddemo
-permalink: /flyeranddemo/
----
