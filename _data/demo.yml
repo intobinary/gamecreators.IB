@@ -7,3 +7,12 @@
     - computers: [1, 4, 6, 28, 31]
     - books: [3, 29]
     - degrees: [25, 26, 27, 24]
+- 2:
+  - map: [25, 26, 27, 19, 20, 21, 13, 5, 4, 3, 2, 1]
+  - start: [25, "up"]
+  - solution: [right, up, up, left, up, right, up, up, left, up, up, left, up, up, up, up]
+  - items:
+    - money: [26, 27, 19, 20, 21, 13, 5, 4, 3, 2, 1]
+    - computers: []
+    - books: []
+    - degrees: []

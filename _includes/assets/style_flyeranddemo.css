@@ -338,7 +338,3 @@ footer a { text-decoration: underline; }
 		100% { transform: scale(1); }
 	}
 /*** END ANIMATION ***/
-
-/*** SANDBOX ***/
-.demo {// display: none; }
-/*** END SANDBOX ***/
